@@ -1,29 +1,16 @@
 #! /usr/bin/env python
-# https://docs.python.org/3/library/argparse.html
+
 import argparse
-from collections import defaultdict # for income graph
+from collections import defaultdict
 import json
 import math
 
 import matplotlib as mil
-mil.use('TkAgg') # add it before launching matplotlib
+mil.use('TkAgg')
 import matplotlib.pyplot as plt
-
-import doctest
 
 
 class Agent:
-
-    """
-    >>> dictionary = {"age": 84, "agreeableness": -0.8437190198916452}
-    >>> agent = Agent(30, **dictionary)
-    >>> agent.position
-    30
-    >>> agent.age
-    84
-    >>> agent.agreeableness
-    -0.8437190198916452
-    """
 
     def __init__(self, position, **properties):
         self.position = position
@@ -34,10 +21,7 @@ class Agent:
 class Position:
 
     def __init__(self, longitude_degrees, latitude_degrees):
-        # We store the degree values, but we will be mostly using radians
-        # because they are much more convenient for computation purposes.
 
-        # assert : Lève une exception si renvoie False
         assert -180 <= longitude_degrees <= 180
         self.longitude_degrees = longitude_degrees
 
@@ -66,16 +50,12 @@ class Zone:
     # The width and height of the zones that will be added to ZONES. Here, we
     # choose square zones but we could just as well use rectangular shapes.
 
-    # Attributs de classe (constante si hors de la classe) car on fait 
-    # cls.WIDTH_DEGREES
     MIN_LONGITUDE_DEGREES = -180
     MAX_LONGITUDE_DEGREES = 180
     MIN_LATITUDE_DEGREES = -90
     MAX_LATITUDE_DEGREES = 90
-    WIDTH_DEGREES = 1 # degrees of longitude
-    HEIGHT_DEGREES = 1 # degrees of latitude
-
-    # S'il y a un attribut d'instance, il va dans __init__
+    WIDTH_DEGREES = 1 
+    HEIGHT_DEGREES = 1 
 
     EARTH_RADIUS_KILOMETERS = 6371
 
@@ -92,15 +72,11 @@ class Zone:
     @property
     def width(self):
         """Zone width, in kilometers"""
-        # Note that here we access the class attribute via "self" and it
-        # doesn't make any difference
         return abs(self.corner1.longitude - self.corner2.longitude) * self.EARTH_RADIUS_KILOMETERS
 
     @property
     def height(self):
         """Zone height, in kilometers"""
-        # Note that here we access the class attribute via "self" and it
-        # doesn't make any difference
         return abs(self.corner1.latitude - self.corner2.latitude) * self.EARTH_RADIUS_KILOMETERS
 
     def add_inhabitant(self, inhabitant):
@@ -108,8 +84,6 @@ class Zone:
 
     def population_density(self):
         """Population density of the zone, (people/km²)"""
-        # Note that this will crash with a ZeroDivisionError if the zone has 0
-        # area, but it should really not happen
         return self.population / self.area()
 
     def area(self):
@@ -148,7 +122,6 @@ class Zone:
 
     @classmethod
     def _initialize_zones(cls):
-        # Note that this method is "private": we prefix the method name with "_".
         cls.ZONES = []
         for latitude in range(cls.MIN_LATITUDE_DEGREES, cls.MAX_LATITUDE_DEGREES, cls.HEIGHT_DEGREES):
             for longitude in range(cls.MIN_LONGITUDE_DEGREES, cls.MAX_LONGITUDE_DEGREES, cls.WIDTH_DEGREES):
@@ -157,8 +130,7 @@ class Zone:
                 zone = Zone(bottom_left_corner, top_right_corner)
                 cls.ZONES.append(zone)
 
-# () ne se fait pas trop.
-# Ceci est un mixin ?
+
 class BaseGraph:
 
     def __init__(self):
@@ -194,10 +166,8 @@ class BaseGraph:
 
 
 class AgreeablenessGraph(BaseGraph):
-    # Inheritance, yay!
 
     def __init__(self):
-        # Call base constructor
         super(AgreeablenessGraph, self).__init__()
 
         self.title = "Nice people live in the countryside"
@@ -210,10 +180,8 @@ class AgreeablenessGraph(BaseGraph):
         return x_values, y_values
 
 class IncomeGraph(BaseGraph):
-    # Inheritance, yay!
 
     def __init__(self):
-        # Call base constructor
         super(IncomeGraph, self).__init__()
 
         self.title = "Older people have more money"
@@ -229,24 +197,19 @@ class IncomeGraph(BaseGraph):
                 population_by_age[inhabitant.age] += 1
 
         x_values = range(0, 100)
-        # list comprehension (listcomps)
         y_values = [income_by_age[age] / (population_by_age[age] or 1) for age in range(0, 100)]
         return x_values, y_values
 
 
 def main():
-    # Si on avait mis tout ça en bas, on aurait eu beaucoup de variables globales.
     parser = argparse.ArgumentParser("Display population stats")
     parser.add_argument("src", help="Path to source json agents file")
     args = parser.parse_args()
 
-    # Load agents
     for agent_properties in json.load(open(args.src)):
         longitude = agent_properties.pop('longitude')
         latitude = agent_properties.pop('latitude')
-        # store agent position in radians
         position = Position(longitude, latitude)
-
         zone = Zone.find_zone_that_contains(position)
         agent = Agent(position, **agent_properties)
         zone.add_inhabitant(agent)
@@ -258,5 +221,4 @@ def main():
     income_graph.show(Zone.ZONES)
 
 if __name__ == "__main__":
-    # main()
-    doctest.testmod()
+    main()
