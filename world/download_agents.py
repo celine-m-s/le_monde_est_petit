@@ -23,7 +23,7 @@ def main():
             response = urllib.request.urlopen("http://pplapi.com/batch/{}/sample.json".format(request_count))
             agents += json.loads(response.read().decode("utf8"))
         except urllib.error.HTTPError:
-            print("Too may requests, sleeping 10s ({} agents)".format(len(agents)))
+            print("Too many requests, sleeping 10s ({} agents)".format(len(agents)))
             time.sleep(10)
 
     result = json.dumps(agents, indent=2, sort_keys=True)
