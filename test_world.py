@@ -1,4 +1,4 @@
-from world.script import *
+from program.world import *
 import pytest
 
 def setup_function(function):

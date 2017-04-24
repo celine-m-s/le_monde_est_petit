@@ -21,6 +21,7 @@ def main():
         request_count = min(args.count - len(agents), 500)
         try:
             response = urllib.request.urlopen("http://pplapi.com/batch/{}/sample.json".format(request_count))
+            print(response)
             agents += json.loads(response.read().decode("utf8"))
         except urllib.error.HTTPError:
             print("Too many requests, sleeping 10s ({} agents)".format(len(agents)))
@@ -28,8 +29,9 @@ def main():
 
     result = json.dumps(agents, indent=2, sort_keys=True)
     if args.dest:
-        with open(args.dest, 'w') as out_f:
-            out_f.write(result)
+        pass
+        #with open(args.dest, 'w') as out_f:
+            #out_f.write(result)
     else:
         print(result)
 
