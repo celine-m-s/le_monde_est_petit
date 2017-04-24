@@ -1,4 +1,5 @@
 from world.script import *
+import pytest
 
 def setup_function(function):
     """ setup any state tied to the execution of the given function.
@@ -49,17 +50,13 @@ def test_latitude_degrees():
 
 #   - modifier un attribut longitude_degrees avec une valeur supérieure à 180 renvoie une erreur. 
 def test_longitude_degrees_range():
-    try:
+    with pytest.raises(AssertionError):
         position = Position(200.85840672174572, 33.15219798270325)
-    except AssertionError:
-        assert True
 
 #   - modifier un attribut latitude_degrees avec une valeur supérieure à 90 renvoie une erreur. 
 def test_latitude_degrees_range():
-    try:
+    with pytest.raises(AssertionError):
         position = Position(100.85840672174572, 100.15219798270325)
-    except AssertionError:
-        assert True
 
 #   - récupérer une longitude
 def test_longitude():
