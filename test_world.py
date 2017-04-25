@@ -13,13 +13,7 @@ def test_hello():
 #############################################
 
 class TestAgent:
-    @classmethod
-    def setup_class(cls):
-        cls.AGENT = script.Agent(3)
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.AGENT)
+    AGENT = script.Agent(3)
     # - Agent : 
     #   - récupérer un attribut position
     def test_set_position(self):
@@ -76,19 +70,9 @@ class TestPosition:
 #############################################
 
 class TestZone:
-
-    @classmethod
-    def setup_class(cls):
-        cls.POSITION1 = script.Position(100, 33)
-        cls.POSITION2 = script.Position(101, 34)
-        cls.ZONE = script.Zone(cls.POSITION1, cls.POSITION2)
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.POSITION1)
-        del(cls.POSITION2)
-        del(cls.ZONE)
-        script.Zone.ZONES = []
+    POSITION1 = script.Position(100, 33)
+    POSITION2 = script.Position(101, 34)
+    ZONE = script.Zone(cls.POSITION1, cls.POSITION2)
 
     def setup_method(self):
         script.Zone._initialize_zones()
