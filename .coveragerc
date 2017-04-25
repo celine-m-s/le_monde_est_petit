@@ -1,0 +1,5 @@
+[run]
+source =
+  /program/world.py
+omit = 
+  ../env/*
