@@ -42,15 +42,22 @@ class TestAgent:
 #############################################
 
 class TestPosition:
-    POSITIONTEST = script.Position(100, 33)
+    @classmethod
+    def setup_class(cls):
+        cls.POSITION = script.Position(100, 33)
+
+    @classmethod
+    def teardown_class(cls):
+        del(cls.POSITION)
+
     # - Position :
     #   - modifier un attribut longitude_degrees
     def test_longitude_degrees(self):
-        assert self.POSITIONTEST.longitude_degrees == 100
+        assert self.POSITION.longitude_degrees == 100
 
     #   - modifier un attribut latitude_degrees
     def test_latitude_degrees(self):
-        assert self.POSITIONTEST.latitude_degrees == 33
+        assert self.POSITION.latitude_degrees == 33
 
     #   - modifier un attribut longitude_degrees avec une valeur supérieure à 180 renvoie une erreur.
     def test_longitude_degrees_range(self):
@@ -64,11 +71,11 @@ class TestPosition:
 
     #   - récupérer une longitude
     def test_longitude(self):
-        assert self.POSITIONTEST.longitude == 1.7453292519943295
+        assert self.POSITION.longitude == 1.7453292519943295
 
     #   - récupérer une latitude
     def test_latitude(self):
-        assert self.POSITIONTEST.latitude == 0.5759586531581288
+        assert self.POSITION.latitude == 0.5759586531581288
 
 
 #############################################
