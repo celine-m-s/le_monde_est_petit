@@ -72,22 +72,7 @@ class TestPosition:
 class TestZone:
     POSITION1 = script.Position(100, 33)
     POSITION2 = script.Position(101, 34)
-    ZONE = script.Zone(cls.POSITION1, cls.POSITION2)
-
-    def setup_method(self):
-        script.Zone._initialize_zones()
-        agent = script.Agent(self.POSITION1, agreeableness=1)
-        self.ZONE.inhabitants = [agent]
-
-    def teardown_method(self):
-        self.ZONES = []
-        #agent = script.Agent(self.POSITION1, agreeableness=1)
-        #self.ZONETEST.inhabitants = [agent]
-
-    #   - récupérer toutes les instances Zone (Zone.ZONES)
-    # On devrait avoir exactement 64800 zones
-    def test_get_zones(self):
-        assert len(script.Zone.ZONES) == 64800
+    ZONE = script.Zone(POSITION1, POSITION2)
 
     # - Zone :
     def test_zone_that_contains(self):
@@ -104,11 +89,16 @@ class TestZone:
         found_zone = script.Zone.find_zone_that_contains(self.POSITION1)
         assert found_zone.contains(self.POSITION1)
 
+    #   - récupérer toutes les instances Zone (Zone.ZONES)
+    # On devrait avoir exactement 64800 zones
+    def test_get_zones(self):
+        assert len(script.Zone.ZONES) == 64800
+
     #   - ajouter un habitant dans une zone
     def test_add_inhabitant_in_zone(self):
         agent = script.Agent(self.POSITION1, agreeableness=1)
         self.ZONE.add_inhabitant(agent)
-        assert len(self.ZONE.inhabitants) == 2
+        assert len(self.ZONE.inhabitants) == 1
 
 
     #   - récupérer la densité de population d'une zone
@@ -118,46 +108,3 @@ class TestZone:
 #   - récupérer l'agréabilité moyenne d'une zone
     def test_get_average_agreeableness(self):
         assert self.ZONE.average_agreeableness() == 1
-
-
-class TestAgreeablenessGraph:
-# - AgreeablenessGraph :
-
-    @classmethod
-    def setup_class(cls):
-        script.Zone._initialize_zones()
-        cls.ZONE = script.Zone.ZONES[0]
-        cls.GRAPH = script.AgreeablenessGraph()
-        cls.ZONES = script.Zone.ZONES
-        for _ in range(0, 10):
-            cls.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1))
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.GRAPH)
-        del(cls.ZONE)
-        del(cls.ZONES)
-
-#   - récupérer un titre
-    def test_title(self):
-        assert self.GRAPH.title == 'Nice people live in the countryside'
-
-#   - récupérer x_label
-    def test_x_label(self):
-        assert self.GRAPH.x_label == 'population density'
-
-#   - récupérer y_label
-    def test_y_label(self):
-        assert self.GRAPH.y_label == 'agreeableness'
-
-#   - récupérer xy_values sous forme de tuples
-    def test_xy_values(self):
-        assert len(self.GRAPH.xy_values(self.ZONES)) == 2
-
-#   - la première valeur de xy_values est la densité de population moyenne pour la première zone
-    def test_average_population_density(self):
-        assert self.GRAPH.xy_values(self.ZONES)[0][0] == self.ZONE.population_density()
-
-#   - la seconde valeur de xy_values est l'agréabilité moyenne
-    def test_average_agreeableness(self):
-        assert self.GRAPH.xy_values(self.ZONES)[1][0] == self.ZONE.average_agreeableness()
