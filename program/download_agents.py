@@ -27,7 +27,7 @@ def main():
     parser = argparse.ArgumentParser(description="Download agents from pplapi.com")
     parser.add_argument("-c", "--count", type=int, default=10, help="Number of agents to download.")
     parser.add_argument("-d", "--dest", help="Destination file. If absent, will print to stdout")
-    args = parser.parse_args(args.count)
+    args = parser.parse_args()
 
     agents = get_agents(args.count)
 

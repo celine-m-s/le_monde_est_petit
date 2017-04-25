@@ -1,10 +1,11 @@
 import program.download_agents as script
 
-import urllib.error
 import urllib.request
 
 from io import BytesIO
 import json
+
+import argparse
 
 def test_http_return(monkeypatch):
     results = [{
@@ -19,3 +20,12 @@ def test_http_return(monkeypatch):
     monkeypatch.setattr(urllib.request, 'urlopen', mockreturn)
     assert script.get_agents(1) == results
 
+def test_main(monkeypatch):
+
+    monkeypatch.setattr(argparse.ArgumentParser, 'parse_args', lambda dest: 'program/agents-100k.json' )
+  
+    assert argparse.ArgumentParser.parse_args('dest') == 'program/agents-100k.json'
+
+    # fake writing file
+  
+    p = tmpdir.mkdir("program").join("agents.json")
