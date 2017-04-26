@@ -4,6 +4,20 @@ This program was made as an example for two of my OpenClassrooms courses: [Déco
 
 It's a fork from [This project](https://github.com/OpenClassrooms-Student-Center/la_poo_avec_python/tree/master).
 
+# Usage
+
+Run tests:
+
+    pytest test*.py
+
+Run tests and generate coverage:
+
+    pytest --cov=program test*.py
+
+Run tests and generate coverage in html format:
+    
+    pytest --cov=program --cov-report html test_*.py
+
 # Contribute
 
 To contribute, just fork this repo, make your changes and open a PR. That's it!
