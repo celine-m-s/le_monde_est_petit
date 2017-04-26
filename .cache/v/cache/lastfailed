@@ -1,1 +1,3 @@
-{}
+{
+  "test_download_agents.py::test_http_return": true
+}
