@@ -219,3 +219,38 @@ class TestIncomeGraph:
 
     def test_average_income_by_age(self):
         assert self.GRAPH.xy_values(self.ZONES)[1][20] == 40
+
+class TestAgreeablenessPerAgeGraph:
+
+    @classmethod
+    def setup_class(cls):
+        script.Zone._initialize_zones()
+        cls.ZONE = script.Zone.ZONES[0]
+        cls.GRAPH = script.AgreeablenessPerAgeGraph()
+        cls.ZONES = script.Zone.ZONES
+        for _ in range(0, 10):
+            cls.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1, age=50))
+
+    @classmethod
+    def teardown_class(cls):
+        del(cls.GRAPH)
+        del(cls.ZONE)
+        del(cls.ZONES)
+
+    def test_title(self):
+        assert self.GRAPH.title == 'Nice people are young'
+
+    def test_x_label(self):
+        assert self.GRAPH.x_label == 'age'
+
+    def test_y_label(self):
+        assert self.GRAPH.y_label == 'agreeableness'
+
+    def test_xy_values(self):
+        assert len(self.GRAPH.xy_values(self.ZONES)) == 2
+
+    def test_age(self):
+        assert self.GRAPH.xy_values(self.ZONES)[0][50] == 50
+
+    def test_average_agreeableness_by_age(self):
+        assert self.GRAPH.xy_values(self.ZONES)[1][50] == 1

@@ -174,7 +174,6 @@ class AgreeablenessGraph(BaseGraph):
 
     def __init__(self):
         super(AgreeablenessGraph, self).__init__()
-
         self.title = "Nice people live in the countryside"
         self.x_label = "population density"
         self.y_label = "agreeableness"
@@ -184,11 +183,12 @@ class AgreeablenessGraph(BaseGraph):
         y_values = [zone.average_agreeableness() for zone in zones]
         return x_values, y_values
 
+    
+
 class IncomeGraph(BaseGraph):
 
     def __init__(self):
         super(IncomeGraph, self).__init__()
-
         self.title = "Older people have more money"
         self.x_label = "age"
         self.y_label = "income"
@@ -205,6 +205,25 @@ class IncomeGraph(BaseGraph):
         y_values = [income_by_age[age] / (population_by_age[age] or 1) for age in range(0, 100)]
         return x_values, y_values
 
+class AgreeablenessPerAgeGraph(BaseGraph):
+
+    def __init__(self):
+        super(AgreeablenessPerAgeGraph, self).__init__()
+        self.title = "Nice people are young"
+        self.x_label = "age"
+        self.y_label = "agreeableness"
+
+    def xy_values(self, zones):
+        agreeableness_by_age = defaultdict(float)
+        population_by_age = defaultdict(int)
+        for zone in zones:
+            for inhabitant in zone.inhabitants:
+                agreeableness_by_age[inhabitant.age] += inhabitant.agreeableness
+                population_by_age[inhabitant.age] += 1
+
+        x_values = range(0, 100)
+        y_values = [agreeableness_by_age[age] / (population_by_age[age] or 1) for age in range(0, 100)]
+        return x_values, y_values
 
 def main():
     parser = argparse.ArgumentParser("Display population stats")
@@ -224,6 +243,9 @@ def main():
 
     income_graph = IncomeGraph()
     income_graph.show(Zone.ZONES)
+
+    agreeableness_per_age_graph = AgreeablenessPerAgeGraph()
+    agreeableness_per_age_graph.show(Zone.ZONES)
 
 if __name__ == "__main__":
     main()
