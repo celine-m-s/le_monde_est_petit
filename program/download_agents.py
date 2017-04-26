@@ -22,12 +22,14 @@ def get_agents(count):
             time.sleep(10)
     return agents
 
-
-def main():
+def parse_args(args=None):
     parser = argparse.ArgumentParser(description="Download agents from pplapi.com")
     parser.add_argument("-c", "--count", type=int, default=10, help="Number of agents to download.")
     parser.add_argument("-d", "--dest", help="Destination file. If absent, will print to stdout")
-    args = parser.parse_args()
+    return parser.parse_args(args)
+
+def main(command_line_arguments=None):
+    args = parse_args(command_line_arguments)
 
     agents = get_agents(args.count)
 
