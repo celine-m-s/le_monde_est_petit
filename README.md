@@ -8,6 +8,21 @@ It's a fork from [This project](https://github.com/OpenClassrooms-Student-Center
 
 To contribute, just fork this repo, make your changes and open a PR. That's it!
 
+# Usage
+
+Run tests:
+
+    pytest test*.py
+
+Run tests and generate coverage:
+
+    pytest --cov=program test*.py
+
+Run tests and generate coverage in html format:
+    
+    pytest --cov=program --cov-report html test_*.py
+
+
 # Contributors
 
 [Régis Behmo](https://github.com/regisb)

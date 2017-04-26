@@ -1,4 +1,5 @@
 Matplotlib
 pytest
 pylint
+pytest-cov
 coverage
