@@ -23,12 +23,8 @@ def get_agents(count):
     return agents
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Download agents from pplapi.com")
-    parser.add_argument("-c", "--count", type=int, default=10, help="Number of agents to download.")
-    parser.add_argument("-d", "--dest", help="Destination file. If absent, will print to stdout")
-    args = parser.parse_args()
-
+def main(command_line_arguments=None):
+    args = parse_args(command_line_arguments)
     agents = get_agents(args.count)
 
     result = json.dumps(agents, indent=2, sort_keys=True)
@@ -39,6 +35,11 @@ def main():
     else:
         print(result)
 
+def parse_args(args=None):
+    parser = argparse.ArgumentParser(description="Download agents from pplapi.com")
+    parser.add_argument("-c", "--count", type=int, default=10, help="Number of agents to download.")
+    parser.add_argument("-d", "--dest", help="Destination file. If absent, will print to stdout")
+    return parser.parse_args(args)
 
 if __name__ == "__main__":
     main()

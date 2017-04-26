@@ -20,12 +20,8 @@ def test_http_return(monkeypatch):
     monkeypatch.setattr(urllib.request, 'urlopen', mockreturn)
     assert script.get_agents(1) == results
 
-def test_main(monkeypatch):
-
-    monkeypatch.setattr(argparse.ArgumentParser, 'parse_args', lambda dest: 'program/agents-100k.json' )
-  
-    assert argparse.ArgumentParser.parse_args('dest') == 'program/agents-100k.json'
-
+def test_main(tmpdir):
     # fake writing file
-  
     p = tmpdir.mkdir("program").join("agents.json")
+
+    script.main(["--dest", 'program/agents-100k.json', "--count", "1"])
