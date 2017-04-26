@@ -20,7 +20,7 @@ def test_http_return(monkeypatch):
     monkeypatch.setattr(urllib.request, 'urlopen', mockreturn)
     assert script.get_agents(1) == results
 
-def test_main(monkeypatch):
+def test_main(monkeypatch, tmpdir):
 
     monkeypatch.setattr(argparse.ArgumentParser, 'parse_args', lambda dest: 'program/agents-100k.json' )
   
