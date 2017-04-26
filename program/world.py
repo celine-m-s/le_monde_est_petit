@@ -7,6 +7,8 @@ import matplotlib as mil
 mil.use('TkAgg')
 import matplotlib.pyplot as plt
 
+import pdb
+
 class Agent:
 
     """
