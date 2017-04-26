@@ -169,9 +169,18 @@ class BaseGraph:
         # You should implement this method in your children classes
         raise NotImplementedError
 
+    def attribute_by_age(self, zones, attr):
+        attribute_by_age = defaultdict(float)
+        population_by_age = defaultdict(int)
+        for zone in zones:
+            for inhabitant in zone.inhabitants:
+                attribute_by_age[inhabitant.age] += getattr(inhabitant, attr)
+                population_by_age[inhabitant.age] += 1
+
+        return attribute_by_age, population_by_age
+
 
 class AgreeablenessGraph(BaseGraph):
-
     def __init__(self):
         super(AgreeablenessGraph, self).__init__()
         self.title = "Nice people live in the countryside"
@@ -183,8 +192,6 @@ class AgreeablenessGraph(BaseGraph):
         y_values = [zone.average_agreeableness() for zone in zones]
         return x_values, y_values
 
-    
-
 class IncomeGraph(BaseGraph):
 
     def __init__(self):
@@ -194,15 +201,10 @@ class IncomeGraph(BaseGraph):
         self.y_label = "income"
 
     def xy_values(self, zones):
-        income_by_age = defaultdict(float)
-        population_by_age = defaultdict(int)
-        for zone in zones:
-            for inhabitant in zone.inhabitants:
-                income_by_age[inhabitant.age] += inhabitant.income
-                population_by_age[inhabitant.age] += 1
+        a = self.attribute_by_age(zones, 'income')
 
         x_values = range(0, 100)
-        y_values = [income_by_age[age] / (population_by_age[age] or 1) for age in range(0, 100)]
+        y_values = [a[0][age] / (a[1][age] or 1) for age in range(0, 100)]
         return x_values, y_values
 
 class AgreeablenessPerAgeGraph(BaseGraph):
@@ -214,15 +216,10 @@ class AgreeablenessPerAgeGraph(BaseGraph):
         self.y_label = "agreeableness"
 
     def xy_values(self, zones):
-        agreeableness_by_age = defaultdict(float)
-        population_by_age = defaultdict(int)
-        for zone in zones:
-            for inhabitant in zone.inhabitants:
-                agreeableness_by_age[inhabitant.age] += inhabitant.agreeableness
-                population_by_age[inhabitant.age] += 1
+        a = self.attribute_by_age(zones, 'agreeableness')
 
         x_values = range(0, 100)
-        y_values = [agreeableness_by_age[age] / (population_by_age[age] or 1) for age in range(0, 100)]
+        y_values = [a[0][age] / (a[1][age] or 1) for age in range(0, 100)]
         return x_values, y_values
 
 def main():
