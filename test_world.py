@@ -33,42 +33,41 @@ def test_get_position():
 
 #   - assigner un dictionnaire en tant qu'attributs
 def test_set_agent_attributes():
-    dictionary = {"agreeableness": -0.8437190198916452}
-    agent = script.Agent(3, **dictionary)
-    assert agent.agreeableness == -0.8437190198916452
+    agent = script.Agent(3, agreeableness=1)
+    assert agent.agreeableness == 1
 
 # - Position :
 #   - modifier un attribut longitude_degrees
 def test_longitude_degrees():
-    position = script.Position(100.85840672174572, 33.15219798270325)
-    assert position.longitude_degrees == 100.85840672174572
+    position = script.Position(100, 34)
+    assert position.longitude_degrees == 100
 
 #   - modifier un attribut latitude_degrees
 def test_latitude_degrees():
-    position = script.Position(100.85840672174572, 33.15219798270325)
-    assert position.latitude_degrees == 33.15219798270325
+    position = script.Position(100, 34)
+    assert position.latitude_degrees == 34
 
 #   - modifier un attribut longitude_degrees avec une valeur supérieure à 180 renvoie une erreur. 
 def test_longitude_degrees_range():
     with pytest.raises(AssertionError):
-        position = script.Position(200.85840672174572, 33.15219798270325)
+        position = script.Position(200, 33)
 
 #   - modifier un attribut latitude_degrees avec une valeur supérieure à 90 renvoie une erreur. 
 def test_latitude_degrees_range():
     with pytest.raises(AssertionError):
-        position = script.Position(100.85840672174572, 100.15219798270325)
+        position = script.Position(100, 100)
 
 #   - récupérer une longitude
 def test_longitude():
-    position = script.Position(100.85840672174572, 33.15219798270325)
+    position = script.Position(100, 33)
     # print('longitude', position.longitude)
-    assert position.longitude == 1.7603112756100432
+    assert position.longitude == 1.7453292519943295
 
 #   - récupérer une latitude
 def test_latitude():
-    position = script.Position(100.85840672174572, 33.15219798270325)
+    position = script.Position(100, 33)
     # print('latitude', position.latitude)
-    assert position.latitude == 0.5786150090711938
+    assert position.latitude == 0.5759586531581288
 
 
 
