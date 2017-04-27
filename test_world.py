@@ -1,4 +1,4 @@
-from world.script import *
+import program.world as script
 import pytest
 
 def setup_function(function):
@@ -22,51 +22,51 @@ def test_hello():
 # - Agent : 
 #   - récupérer un attribut position
 def test_set_position():
-    agent = Agent(3)
+    agent = script.Agent(3)
     agent.position = 5
     assert agent.position == 5
 
 #   - modifier un attribut position
 def test_get_position():
-    agent = Agent(3)
+    agent = script.Agent(3)
     assert agent.position == 3
 
 #   - assigner un dictionnaire en tant qu'attributs
 def test_set_agent_attributes():
     dictionary = {"agreeableness": -0.8437190198916452}
-    agent = Agent(3, **dictionary)
+    agent = script.Agent(3, **dictionary)
     assert agent.agreeableness == -0.8437190198916452
 
 # - Position :
 #   - modifier un attribut longitude_degrees
 def test_longitude_degrees():
-    position = Position(100.85840672174572, 33.15219798270325)
+    position = script.Position(100.85840672174572, 33.15219798270325)
     assert position.longitude_degrees == 100.85840672174572
 
 #   - modifier un attribut latitude_degrees
 def test_latitude_degrees():
-    position = Position(100.85840672174572, 33.15219798270325)
+    position = script.Position(100.85840672174572, 33.15219798270325)
     assert position.latitude_degrees == 33.15219798270325
 
 #   - modifier un attribut longitude_degrees avec une valeur supérieure à 180 renvoie une erreur. 
 def test_longitude_degrees_range():
     with pytest.raises(AssertionError):
-        position = Position(200.85840672174572, 33.15219798270325)
+        position = script.Position(200.85840672174572, 33.15219798270325)
 
 #   - modifier un attribut latitude_degrees avec une valeur supérieure à 90 renvoie une erreur. 
 def test_latitude_degrees_range():
     with pytest.raises(AssertionError):
-        position = Position(100.85840672174572, 100.15219798270325)
+        position = script.Position(100.85840672174572, 100.15219798270325)
 
 #   - récupérer une longitude
 def test_longitude():
-    position = Position(100.85840672174572, 33.15219798270325)
+    position = script.Position(100.85840672174572, 33.15219798270325)
     # print('longitude', position.longitude)
     assert position.longitude == 1.7603112756100432
 
 #   - récupérer une latitude
 def test_latitude():
-    position = Position(100.85840672174572, 33.15219798270325)
+    position = script.Position(100.85840672174572, 33.15219798270325)
     # print('latitude', position.latitude)
     assert position.latitude == 0.5786150090711938
 
