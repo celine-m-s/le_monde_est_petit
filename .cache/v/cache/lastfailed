@@ -1,1 +1,5 @@
-{}
+{
+  "test_world.py::TestAgreeablenessGraph::()::test_average_agreeableness": true,
+  "test_world.py::TestAgreeablenessGraph::()::test_average_population_density": true,
+  "test_world.py::TestAgreeablenessGraph::()::test_xy_values": true
+}

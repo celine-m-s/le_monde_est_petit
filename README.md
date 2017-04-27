@@ -25,5 +25,5 @@ Run tests and generate coverage in html format:
 
 # Contributors
 
-[Régis Behmo](https://github.com/regisb)
-Céline Martinet Sanchez
+- [Régis Behmo](https://github.com/regisb)
+- Céline Martinet Sanchez
