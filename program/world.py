@@ -7,8 +7,6 @@ import matplotlib as mil
 mil.use('TkAgg')
 import matplotlib.pyplot as plt
 
-import doctest
-
 
 class Agent:
 
@@ -227,5 +225,4 @@ def main():
     income_graph.show(Zone.ZONES)
 
 if __name__ == "__main__":
-    # main()
-    doctest.testmod()
+    main()
