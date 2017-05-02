@@ -26,8 +26,7 @@ class TestAgent:
 
     #   - assigner un dictionnaire en tant qu'attributs
     def test_set_agent_attributes(self):
-        dictionary = {"agreeableness": -1}
-        agent = script.Agent(3, **dictionary)
+        agent = script.Agent(3, agreeableness=-1)
         assert agent.agreeableness == -1
 
 
