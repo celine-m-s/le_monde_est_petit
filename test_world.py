@@ -13,13 +13,9 @@ def test_hello():
 #############################################
 
 class TestAgent:
-    @classmethod
-    def setup_class(cls):
-        cls.AGENT = script.Agent(3)
+    def setup_method(self):
+        self.AGENT = script.Agent(3)
 
-    @classmethod
-    def teardown_class(cls):
-        del(cls.AGENT)
     # - Agent : 
     #   - récupérer un attribut position
     def test_set_position(self):
@@ -28,7 +24,7 @@ class TestAgent:
 
     #   - modifier un attribut position
     def test_get_position(self):
-        assert self.AGENT.position == 5
+        assert self.AGENT.position == 3
 
     #   - assigner un dictionnaire en tant qu'attributs
     def test_set_agent_attributes(self):
@@ -42,13 +38,8 @@ class TestAgent:
 #############################################
 
 class TestPosition:
-    @classmethod
-    def setup_class(cls):
-        cls.POSITION = script.Position(100, 33)
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.POSITION)
+    def setup_method(self):
+        self.POSITION = script.Position(100, 33)
 
     # - Position :
     #   - modifier un attribut longitude_degrees
@@ -134,20 +125,13 @@ class TestZone:
 class TestAgreeablenessGraph:
 # - AgreeablenessGraph :
 
-    @classmethod
-    def setup_class(cls):
+    def setup_method(self):
         script.Zone._initialize_zones()
-        cls.ZONE = script.Zone.ZONES[0]
-        cls.GRAPH = script.AgreeablenessGraph()
-        cls.ZONES = script.Zone.ZONES
+        self.ZONE = script.Zone.ZONES[0]
+        self.GRAPH = script.AgreeablenessGraph()
+        self.ZONES = script.Zone.ZONES
         for _ in range(0, 10):
-            cls.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1))
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.GRAPH)
-        del(cls.ZONE)
-        del(cls.ZONES)
+            self.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1))
 
 #   - récupérer un titre
     def test_title(self):
@@ -175,20 +159,13 @@ class TestAgreeablenessGraph:
 
 class TestIncomeGraph:
 
-    @classmethod
-    def setup_class(cls):
+    def setup_method(self):
         script.Zone._initialize_zones()
-        cls.ZONE = script.Zone.ZONES[0]
-        cls.GRAPH = script.IncomeGraph()
-        cls.ZONES = script.Zone.ZONES
+        self.ZONE = script.Zone.ZONES[0]
+        self.GRAPH = script.IncomeGraph()
+        self.ZONES = script.Zone.ZONES
         for _ in range(0, 10):
-            cls.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), income=40, age=20))
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.GRAPH)
-        del(cls.ZONE)
-        del(cls.ZONES)
+            self.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), income=40, age=20))
 
     def test_title(self):
         assert self.GRAPH.title == 'Older people have more money'
