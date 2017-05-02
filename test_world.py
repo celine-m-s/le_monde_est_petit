@@ -83,7 +83,7 @@ class TestZone:
         self.zone.inhabitants = [agent]
 
     def teardown_method(self):
-        self.ZONES = []
+        script.Zone.ZONES = []
 
     #   - récupérer toutes les instances Zone (Zone.ZONES)
     # On devrait avoir exactement 64800 zones
@@ -132,6 +132,9 @@ class TestAgreeablenessGraph:
         for _ in range(0, 10):
             self.zone.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1))
 
+    def teardown_method(self):
+        script.Zone.ZONES = []
+
 #   - récupérer un titre
     def test_title(self):
         assert self.graph.title == 'Nice people live in the countryside'
@@ -165,6 +168,9 @@ class TestIncomeGraph:
         self.zones = script.Zone.ZONES
         for _ in range(0, 10):
             self.zone.add_inhabitant(script.Agent(script.Position(-180, -89), income=40, age=20))
+
+    def setup_teardown(self):
+        script.Zone.ZONES = []
 
     def test_title(self):
         assert self.graph.title == 'Older people have more money'
