@@ -13,13 +13,9 @@ def test_hello():
 #############################################
 
 class TestAgent:
-    @classmethod
-    def setup_class(cls):
-        cls.AGENT = script.Agent(3)
+    def setup_method(self):
+        self.AGENT = script.Agent(3)
 
-    @classmethod
-    def teardown_class(cls):
-        del(cls.AGENT)
     # - Agent : 
     #   - récupérer un attribut position
     def test_set_position(self):
@@ -28,7 +24,7 @@ class TestAgent:
 
     #   - modifier un attribut position
     def test_get_position(self):
-        assert self.AGENT.position == 5
+        assert self.AGENT.position == 3
 
     #   - assigner un dictionnaire en tant qu'attributs
     def test_set_agent_attributes(self):
@@ -42,13 +38,8 @@ class TestAgent:
 #############################################
 
 class TestPosition:
-    @classmethod
-    def setup_class(cls):
-        cls.POSITION = script.Position(100, 33)
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.POSITION)
+    def setup_method(self):
+        self.POSITION = script.Position(100, 33)
 
     # - Position :
     #   - modifier un attribut longitude_degrees
@@ -84,28 +75,16 @@ class TestPosition:
 
 class TestZone:
 
-    @classmethod
-    def setup_class(cls):
-        cls.POSITION1 = script.Position(100, 33)
-        cls.POSITION2 = script.Position(101, 34)
-        cls.ZONE = script.Zone(cls.POSITION1, cls.POSITION2)
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.POSITION1)
-        del(cls.POSITION2)
-        del(cls.ZONE)
-        script.Zone.ZONES = []
-
     def setup_method(self):
+        self.POSITION1 = script.Position(100, 33)
+        self.POSITION2 = script.Position(101, 34)  
+        self.ZONE = script.Zone(self.POSITION1, self.POSITION2)
         script.Zone._initialize_zones()
         agent = script.Agent(self.POSITION1, agreeableness=1)
         self.ZONE.inhabitants = [agent]
 
     def teardown_method(self):
         self.ZONES = []
-        #agent = script.Agent(self.POSITION1, agreeableness=1)
-        #self.ZONETEST.inhabitants = [agent]
 
     #   - récupérer toutes les instances Zone (Zone.ZONES)
     # On devrait avoir exactement 64800 zones
@@ -146,20 +125,13 @@ class TestZone:
 class TestAgreeablenessGraph:
 # - AgreeablenessGraph :
 
-    @classmethod
-    def setup_class(cls):
+    def setup_method(self):
         script.Zone._initialize_zones()
-        cls.ZONE = script.Zone.ZONES[0]
-        cls.GRAPH = script.AgreeablenessGraph()
-        cls.ZONES = script.Zone.ZONES
+        self.ZONE = script.Zone.ZONES[0]
+        self.GRAPH = script.AgreeablenessGraph()
+        self.ZONES = script.Zone.ZONES
         for _ in range(0, 10):
-            cls.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1))
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.GRAPH)
-        del(cls.ZONE)
-        del(cls.ZONES)
+            self.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1))
 
 #   - récupérer un titre
     def test_title(self):
@@ -187,20 +159,13 @@ class TestAgreeablenessGraph:
 
 class TestIncomeGraph:
 
-    @classmethod
-    def setup_class(cls):
+    def setup_method(self):
         script.Zone._initialize_zones()
-        cls.ZONE = script.Zone.ZONES[0]
-        cls.GRAPH = script.IncomeGraph()
-        cls.ZONES = script.Zone.ZONES
+        self.ZONE = script.Zone.ZONES[0]
+        self.GRAPH = script.IncomeGraph()
+        self.ZONES = script.Zone.ZONES
         for _ in range(0, 10):
-            cls.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), income=40, age=20))
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.GRAPH)
-        del(cls.ZONE)
-        del(cls.ZONES)
+            self.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), income=40, age=20))
 
     def test_title(self):
         assert self.GRAPH.title == 'Older people have more money'
@@ -220,22 +185,16 @@ class TestIncomeGraph:
     def test_average_income_by_age(self):
         assert self.GRAPH.xy_values(self.ZONES)[1][20] == 40
 
+
 class TestAgreeablenessPerAgeGraph:
 
-    @classmethod
-    def setup_class(cls):
+    def setup_method(self):
         script.Zone._initialize_zones()
-        cls.ZONE = script.Zone.ZONES[0]
-        cls.GRAPH = script.AgreeablenessPerAgeGraph()
-        cls.ZONES = script.Zone.ZONES
+        self.ZONE = script.Zone.ZONES[0]
+        self.GRAPH = script.AgreeablenessPerAgeGraph()
+        self.ZONES = script.Zone.ZONES
         for _ in range(0, 10):
-            cls.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1, age=50))
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.GRAPH)
-        del(cls.ZONE)
-        del(cls.ZONES)
+            self.ZONE.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1, age=50))
 
     def test_title(self):
         assert self.GRAPH.title == 'Nice people are young'
