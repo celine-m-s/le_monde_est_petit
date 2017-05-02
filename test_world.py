@@ -1,17 +1,5 @@
 import program.world as script
 import pytest
-
-def setup_function(function):
-    """ setup any state tied to the execution of the given function.
-    Invoked for every test function in the module.
-    """
-    pass
-
-def teardown_function(function):
-    """ teardown any state that was previously setup with a setup_function
-    call.
-    """
-    pass
     
 def hello(name):
     return 'Hello ' + name
