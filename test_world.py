@@ -84,28 +84,16 @@ class TestPosition:
 
 class TestZone:
 
-    @classmethod
-    def setup_class(cls):
-        cls.POSITION1 = script.Position(100, 33)
-        cls.POSITION2 = script.Position(101, 34)
-        cls.ZONE = script.Zone(cls.POSITION1, cls.POSITION2)
-
-    @classmethod
-    def teardown_class(cls):
-        del(cls.POSITION1)
-        del(cls.POSITION2)
-        del(cls.ZONE)
-        script.Zone.ZONES = []
-
     def setup_method(self):
+        self.POSITION1 = script.Position(100, 33)
+        self.POSITION2 = script.Position(101, 34)  
+        self.ZONE = script.Zone(self.POSITION1, self.POSITION2)
         script.Zone._initialize_zones()
         agent = script.Agent(self.POSITION1, agreeableness=1)
         self.ZONE.inhabitants = [agent]
 
     def teardown_method(self):
         self.ZONES = []
-        #agent = script.Agent(self.POSITION1, agreeableness=1)
-        #self.ZONETEST.inhabitants = [agent]
 
     #   - récupérer toutes les instances Zone (Zone.ZONES)
     # On devrait avoir exactement 64800 zones
