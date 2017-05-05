@@ -2,7 +2,6 @@ import program.download_agents as script
 import urllib.request
 from io import BytesIO
 import json
-import argparse
 
 def test_http_return(tmpdir, monkeypatch):
     results = [{
