@@ -11,14 +11,9 @@ import matplotlib.pyplot as plt
 class Agent:
 
     """
-    >>> dictionary = {"age": 84, "agreeableness": -0.8437190198916452}
-    >>> agent = Agent(30, **dictionary)
+    >>> agent = Agent(30)
     >>> agent.position
     30
-    >>> agent.age
-    84
-    >>> agent.agreeableness
-    -0.8437190198916452
     """
 
     def __init__(self, position, **properties):
