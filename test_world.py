@@ -57,23 +57,12 @@ def test_latitude():
     # print('latitude', position.latitude)
     assert position.latitude == 0.5759586531581288
 
-
-
-
-
-
 # - Zone :
-#   - récupérer un coin inférieur gauche (corner1)
-#   - récupérer un coin supérieur droit (corner2)
-#   - modifier un coin inférieur gauche (corner1)
-#   - modifier un coin supérieur droit (corner2)
 #   - trouver une zone qui contient une position
 #   - ajouter un habitant dans une zone
 #   - récupérer toutes les instances Zone (Zone.ZONES)
 #   - récupérer la densité de population d'une zone
 #   - récupérer l'agréabilité moyenne d'une zone
-#   - récupérer le revenu moyen d'une zone
-#   - récupérer l'âge moyen d'une zone
 
 # - AgreeablenessGraph :
 #   - récupérer un titre
@@ -88,5 +77,5 @@ def test_latitude():
 #   - récupérer x_label
 #   - récupérer y_label
 #   - récupérer xy_values sous forme de tuples
-#   - la première valeur de xy_values est le revenu
-#   - la seconde valeur de xy_values est l'âge
+#   - la première valeur de xy_values est l'âge
+#   - la seconde valeur de xy_values est le revenu
