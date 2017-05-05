@@ -108,45 +108,18 @@ class TestZone:
         assert self.ZONE.average_agreeableness() == 1
 
 
-class TestAgreeablenessGraph:
-    GRAPH = script.AgreeablenessGraph()
 # - AgreeablenessGraph :
-
 #   - récupérer un titre
-    def test_title(self):
-        assert self.GRAPH.title == 'Nice people live in the countryside'
-
 #   - récupérer x_label
-    def test_x_label(self):
-        assert self.GRAPH.x_label == 'population density'
-
 #   - récupérer y_label
-    def test_y_label(self):
-        assert self.GRAPH.y_label == 'agreeableness'
-
 #   - récupérer xy_values sous forme de tuples
-    def test_xy_values(self):
-        pass
-        #assert len(self.XY_VALUES) == 2
-
-#   - la première valeur de xy_values est la densité de population moyenne pour la première zone
-    def test_average_population_density(self):
-        # Initialize zones
-        zone = script.Zone.ZONES[0]
-        graph = script.AgreeablenessGraph()
-        # # Add inhabitants
-        for _ in range(0, 10):
-            zone.add_inhabitant(script.Agent(script.Position(-180, -89), agreeableness=1))
-        a = graph.xy_values(script.Zone.ZONES)
-        assert graph.xy_values(script.Zone.ZONES)[0][0] == zone.population_density()
-
+#   - la première valeur de xy_values est la densité de population moyenne
 #   - la seconde valeur de xy_values est l'agréabilité moyenne
-    def test_average_agreeableness(self):
-        # Initialize zones
-        zone = script.Zone.ZONES[0]
-        graph = script.AgreeablenessGraph()
-        # # Add inhabitants
-        for _ in range(0, 10):
-            zone.add_inhabitant(script.Agent(script.Position(-180, -89), **{"agreeableness": -0.8437190198916452}))
-        a = graph.xy_values(script.Zone.ZONES)
-        assert graph.xy_values(script.Zone.ZONES)[1][0] == zone.average_agreeableness()
+
+# - IncomeGraph :
+#   - récupérer un titre
+#   - récupérer x_label
+#   - récupérer y_label
+#   - récupérer xy_values sous forme de tuples
+#   - la première valeur de xy_values est l'âge
+#   - la seconde valeur de xy_values est le revenu
