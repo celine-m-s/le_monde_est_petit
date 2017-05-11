@@ -162,7 +162,7 @@ class BaseGraph:
 
     def _stat_by_age(self, zones, property_name): 
         """
-        TODO add documentation
+        Reorganize data using the age, for example agreeableness per age. 
         """
         stat_by_age = defaultdict(float)
         population_by_age = defaultdict(int)
