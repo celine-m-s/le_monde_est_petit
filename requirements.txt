@@ -1,4 +1,4 @@
-Matplotlib
+matplotlib
 pytest
 pylint
 pytest-cov
