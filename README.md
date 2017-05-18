@@ -21,11 +21,11 @@ Nous vous fournissons 100 000 agents, gracieusement créés grâce à [PPLAPI](h
 
 Si vous souhaitez en générer de nouveaux, entrez la commande suivante :
 
-    python program/download_agents -d agents-100k.json -c 100000
+    python program/download_agents.py -d program/agents-100k.json -c 100000
 
 # Lancer le programme
 
-    python model.py agents-100k.json
+    python program/world.py program/agents-100k.json
 
 
 # Tests
