@@ -20,5 +20,8 @@ def test_http_return(tmpdir, monkeypatch):
     # run script
     script.main(["--dest", str(p), "--count", "1"])
 
-    local_res = json.load(open(p))
+    #~ local_res = json.load(open(p))
+    with open(str(p), 'r') as f:
+        local_res = json.load(f)
+        
     assert local_res == script.get_agents(1)
