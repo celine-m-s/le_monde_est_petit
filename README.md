@@ -8,9 +8,9 @@ Lorsque le programme se lance, une première fenêtre affiche un graphique conce
 
 # Installation de dépendences
 
-Pour tracer des graphes, vous allez avoir besoin d'installer `matplotlib` :
+Créez un environnement virtuel et lancez l'installation des dépendences listées dans le fichier `requirements.txt`.
 
-    pip install matplotlib
+Attention : ce script nécessite Tkinter et il ne peut être installé en utilisant Pip. Si vous ne l'avez pas encore, vous pouvez l'installer sour Linux en tapant `sudo apt-get install python3.6-tk`.
 
 # Données
 
@@ -43,7 +43,10 @@ Lancer les tests et voir la couverture de tests en format HTML :
     pytest --cov=program --cov-report html test_*.py
 
 
-# Contributors
+# Version de Python
+Ce code est fonctionnel avec Python 3. Dernière version testée : 3.6.5.
+
+# Contributeurs
 
 [Régis Behmo](https://github.com/regisb)
 [Céline Martinet Sanchez](https://github.com/celine-m-s)
